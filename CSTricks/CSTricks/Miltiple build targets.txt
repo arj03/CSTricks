@@ -1,0 +1,13 @@
+﻿Create a Config folder and add two files:
+
+App.LIVE.config
+App.TEST.config
+
+Define two compile targets: TEST and LIVE. For compile conditionals, define TEST as Conditional compilation symbol.
+
+Then open the .csproj file and add the following lines to the bottom (just before </project>) of the file:
+
+<Target Name="AfterBuild">
+  <Delete Files="$(TargetDir)$(TargetFileName).config" />
+  <Copy SourceFiles="$(ProjectDir)\Config\App.$(Configuration).config" DestinationFiles="$(TargetDir)$(TargetFileName).config" />
+</Target>
